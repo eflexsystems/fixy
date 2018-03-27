@@ -1,5 +1,4 @@
 var internals = {};
-var fs = require("fs");
 var moment = require("moment");
 var Papa = require("papaparse");
 var lodash = require("lodash");
@@ -96,13 +95,13 @@ internals.parse = function(specs, input){
 			}
 		}
 		else if(specs.options.levels){
-			var level = lodash.find(specs.options.levels, function(v, k){
+			var level = lodash.find(specs.options.levels, function(v){
 				if(idx >= v.start && idx <= v.end){
 					return true;
 				}
 			});
 			var level_map = lodash.filter(specs.map, {
-				level: lodash.findKey(specs.options.levels, function(v, k){
+				level: lodash.findKey(specs.options.levels, function(v){
 					if(idx >= v.start && idx <= v.end){
 						return true;
 					}
@@ -139,7 +138,6 @@ internals.parse = function(specs, input){
 					newline: "\n"
 				});	
 			}
-			break;
 		default:
 			return array_output.length > 0 ? array_output : object_output;
 	}	
@@ -187,7 +185,7 @@ internals.unparse = function(specs, input, levels){
 				});
 				counter = counter + 1;
 				if(rowCount !== counter){
-					output = output + "\n"
+					output = output + "\n";
 				}
 			});
 
@@ -220,7 +218,7 @@ internals.unparse = function(specs, input, levels){
 			}
 			counter = counter + 1;
 			if(input.length !== counter){
-				output = output + "\n"
+				output = output + "\n";
 			}
 		}
 		return output;
